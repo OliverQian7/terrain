@@ -8,7 +8,7 @@ public class Rover {
   }
   
   public void move() {
-   PVector direction = pickDirection();
+   PVector direction = pickDirection(getNearby(getTerrain()));
    x += direction.x * SPEED;
    y += direction.y * SPEED;
   }
@@ -21,19 +21,34 @@ public class Rover {
         diffs[row][col] = abs(nearby[row][col] - myHeight);
       }
     }
-    float min = 255;
+    float min = 0;
     PVector direction = null;
     for(int row = 0; row < nearby.length; row++) {
       for(int col = 0; col < nearby[0].length; col++) {
         if (row == 1 && col == 1) continue;
         float diff = diffs[row][col];
-        if (diff < min){
+        if (diff > min){
           min = diff;
           direction = new PVector(col-1, row-1);
         }
       }
     }   
     return direction;
+  }
+  public float[][] getNearby(float[][] terrain) {
+    float[][] nearby = new float[3][3];
+    int xi = (int)(this.x/3);
+    int yi = (int)(this.y/3);
+    nearby[1][1] = terrain[yi][xi];
+    nearby[0][0] = terrain[yi-1][xi-1];
+    nearby[1][0] = terrain[yi][xi-1];
+    nearby[2][0] = terrain[yi+1][xi-1];
+    nearby[0][1] = terrain[yi-1][xi];
+    nearby[0][2] = terrain[yi-1][xi+1];
+    nearby[1][2] = terrain[yi][xi+1];
+    nearby[2][1] = terrain[yi+1][xi];
+    nearby[2][2] = terrain [yi+1][xi+1];
+    return nearby;
   }
   
   public void draw() {

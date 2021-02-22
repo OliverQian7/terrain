@@ -39,3 +39,7 @@ public void drawPoint(float point, int x, int y) {
 public void mouseReleased() {
  rover = new Rover(mouseX, mouseY); 
 }
+
+public float[][] getTerrain() {
+ return terrain;
+}
