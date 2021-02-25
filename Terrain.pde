@@ -7,8 +7,8 @@ public void setup() {
  
  for (int i = 0; i < terrain.length; i++) {
   for (int j = 0; j < terrain[0].length; j++) {
-    float xOffset = map(j, 0, 200, 0, 10);
-    float yOffset = map(i, 0, 200, 0, 10);
+    float xOffset = map(j, 0, 200, 0, 1);
+    float yOffset = map(i, 0, 200, 0, 1);
     terrain[i][j] = noise(xOffset,yOffset);
   }
  }
